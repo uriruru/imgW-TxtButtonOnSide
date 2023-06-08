@@ -1,0 +1,118 @@
+<section class="hero" style="background-color: black;">
+  <div class="hero-body">
+    <div class="container has-text-centered" style="max-width: 2000px;">
+      <p class="video-sec-title" style="text-align: left;">Super Responsive Image Slider</p>
+      <div class="slider-container">
+        <div class="slider-track">
+          <div class="slide">
+            <img class="slide-image" src="https://images.unsplash.com/photo-1555661225-ade1bbf3fbb3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1957&q=80" alt="">
+            <div class="slide-info">
+              <p class="slide-title">Image 1</p>
+            </div>
+          </div>
+          <div class="slide">
+            <img class="slide-image" src="https://images.unsplash.com/photo-1566075247408-2fc9e74810d2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80" alt="">
+            <div class="slide-info">
+              <p class="slide-title">Image 2</p>
+            </div>
+          </div>
+          <div class="slide">
+            <img class="slide-image" src="https://images.unsplash.com/photo-1559083991-9bdef0bb5a39?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1955&q=80" alt="">
+            <div class="slide-info">
+              <p class="slide-title">Image 3</p>
+            </div>
+          </div>
+          <div class="slide">
+            <img class="slide-image" src="https://images.unsplash.com/photo-1560800589-3d88290dd749?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1955&q=80" alt="">
+            <div class="slide-info">
+              <p class="slide-title">Image 4</p>
+            </div>
+          </div>
+          <div class="slide">
+            <img class="slide-image" src="https://images.unsplash.com/photo-1560716092-203a1703e06e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1955&q=80" alt="">
+            <div class="slide-info">
+              <p class="slide-title">Image 5</p>
+            </div>
+          </div>
+        </div>
+        <button class="prev-button">&#10094;</button>
+        <button class="next-button">&#10095;</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .slider-container {
+    position: relative;
+    overflow: hidden;
+  }
+  .slider-track {
+    display: flex;
+    transition: transform 0.3s ease-in-out;
+  }
+  .slide {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  .slide-image {
+    width: 100%;
+    height: auto;
+  }
+  .prev-button,
+  .next-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 10px;
+    font-size: 20px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: none;
+    cursor: pointer;
+  }
+  .prev-button {
+    left: 10px;
+  }
+  .next-button {
+    right: 10px;
+  }
+</style>
+
+<script>
+  const prevButton = document.querySelector('.prev-button');
+  const nextButton = document.querySelector('.next-button');
+  const sliderTrack = document.querySelector('.slider-track');
+  const slides = document.querySelectorAll('.slide');
+  const slideWidth = slides[0].clientWidth;
+  const slideCount = slides.length;
+  let position = 0;
+
+  // Set initial position of the slider track
+  sliderTrack.style.transform = `translateX(${position}px)`;
+
+  // Slide to the previous image
+  prevButton.addEventListener('click', () => {
+    position += slideWidth;
+    position = Math.min(position, 0);
+    sliderTrack.style.transform = `translateX(${position}px)`;
+  });
+
+  // Slide to the next image
+  nextButton.addEventListener('click', () => {
+    position -= slideWidth;
+    const minPosition = -(slideWidth * (slideCount - 1));
+    position = Math.max(position, minPosition);
+    sliderTrack.style.transform = `translateX(${position}px)`;
+  });
+
+  // Infinite slide
+  setInterval(() => {
+    position -= slideWidth;
+    const minPosition = -(slideWidth * (slideCount - 1));
+    if (position < minPosition) {
+      position = 0;
+    }
+    sliderTrack.style.transform = `translateX(${position}px)`;
+  }, 3000);
+</script>
